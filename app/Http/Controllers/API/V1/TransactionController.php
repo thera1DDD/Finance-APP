@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use App\Services\TransactionService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class TransactionController extends Controller
 {
-
     protected $transactionService;
 
     public function __construct(TransactionService $transactionService)
@@ -31,7 +31,7 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function store(TransactionRequest $request)
+    public function store(TransactionRequest $request): RedirectResponse
     {
         $this->transactionService->createTransaction($request->validated());
 
@@ -45,7 +45,7 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function update(TransactionRequest $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction): RedirectResponse
     {
         $this->transactionService->updateTransaction($transaction, $request->validated());
 
